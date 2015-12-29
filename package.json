@@ -1,0 +1,33 @@
+{
+  "name": "ember-cli-deploy-github",
+  "version": "0.1.0",
+  "description": "An ember-cli-deploy-plugin for updating the status on github.",
+  "scripts": {},
+  "repository": "https://github.com/seawatts/ember-cli-deploy-github",
+  "engines": {
+    "node": ">= 4.x.x"
+  },
+  "author": "Chris Watts",
+  "license": "MIT",
+  "devDependencies": {
+    "ember-cli": "1.13.1",
+    "ember-cli-app-version": "0.4.0",
+    "ember-cli-dependency-checker": "^1.0.0",
+    "ember-cli-qunit": "0.3.15",
+    "ember-cli-release": "0.2.3",
+    "ember-try": "0.0.6"
+  },
+  "keywords": [
+    "ember-addon",
+    "ember-cli-deploy-plugin"
+  ],
+  "dependencies": {
+    "ember-cli-babel": "^5.0.0",
+    "ember-cli-deploy-plugin": "^0.2.0",
+    "github": "^0.2.4",
+    "urlencode": "^1.1.0"
+  },
+  "ember-addon": {
+    "configPath": "tests/dummy/config"
+  }
+}
