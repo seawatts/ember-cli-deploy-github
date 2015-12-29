@@ -25,18 +25,17 @@ $ ember install ember-cli-deploy-github
 ```javascript
 ENV.github = {
   token: '<your-github-token>',
-  userOrOrganization: `<user-name>`
-  repo: `<my-ember-app-repo>`,
-  appPrefix: '<dasherized-app-name> (optional)`
-  publicURL: `<url-where-assets-will-be-viewed-from>`
-  publicURLVersionParam: `<version-param-name>`
+  userOrOrganization: '<user-name>'
+  repo: '<my-ember-app-repo>',
+  appPrefix: '<dasherized-app-name>',
+  publicURL: '<url-where-assets-will-be-viewed-from>',
+  publicURLVersionParam: '<version-param-name>'
 }
 ```
 
-Ensure that the following environment variables are set:
-
-- CI
-- GITHUB_COMMIT_SHA
+- Ensure that the following environment variables are set:
+  - CI
+  - GITHUB_COMMIT_SHA
 
 - Run the pipeline
 
