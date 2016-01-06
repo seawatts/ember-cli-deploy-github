@@ -2,6 +2,10 @@
 
 > An ember-cli-deploy-plugin for setting the status on a commit in a PR on [GitHub](https://github.com/).
 
+[![](https://ember-cli-deploy.github.io/ember-cli-deploy-version-badges/plugins/ember-cli-deploy-github.svg)](http://ember-cli-deploy.github.io/ember-cli-deploy-version-badges/)
+[![Ember Observer Score](http://emberobserver.com/badges/ember-cli-deploy-github.svg)](http://emberobserver.com/addons/ember-cli-deploy-github)
+[![npm version](https://badge.fury.io/js/ember-cli-deploy-github.svg)](https://badge.fury.io/js/ember-cli-deploy-github)
+
 ## What is an ember-cli-deploy plugin?
 
 A plugin is an addon that can be executed as a part of the ember-cli-deploy pipeline. A plugin will implement one or more of the ember-cli-deploy's pipeline hooks.
