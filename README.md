@@ -2,6 +2,10 @@
 
 > An ember-cli-deploy-plugin for setting the status on a commit in a PR on [GitHub](https://github.com/).
 
+[![](https://ember-cli-deploy.github.io/ember-cli-deploy-version-badges/plugins/ember-cli-deploy-github.svg)](http://ember-cli-deploy.github.io/ember-cli-deploy-version-badges/)
+[![Ember Observer Score](http://emberobserver.com/badges/ember-cli-deploy-github.svg)](http://emberobserver.com/addons/ember-cli-deploy-github)
+[![npm version](https://badge.fury.io/js/ember-cli-deploy-github.svg)](https://badge.fury.io/js/ember-cli-deploy-github)
+
 ## What is an ember-cli-deploy plugin?
 
 A plugin is an addon that can be executed as a part of the ember-cli-deploy pipeline. A plugin will implement one or more of the ember-cli-deploy's pipeline hooks.
@@ -25,18 +29,17 @@ $ ember install ember-cli-deploy-github
 ```javascript
 ENV.github = {
   token: '<your-github-token>',
-  userOrOrganization: `<user-name>`
-  repo: `<my-ember-app-repo>`,
-  appPrefix: '<dasherized-app-name> (optional)`
-  publicURL: `<url-where-assets-will-be-viewed-from>`
-  publicURLVersionParam: `<version-param-name>`
+  userOrOrganization: '<user-name>'
+  repo: '<my-ember-app-repo>',
+  appPrefix: '<dasherized-app-name>',
+  publicURL: '<url-where-assets-will-be-viewed-from>',
+  publicURLVersionParam: '<version-param-name>'
 }
 ```
 
-Ensure that the following environment variables are set:
-
-- CI
-- GITHUB_COMMIT_SHA
+- Ensure that the following environment variables are set:
+  - CI
+  - GITHUB_COMMIT_SHA
 
 - Run the pipeline
 

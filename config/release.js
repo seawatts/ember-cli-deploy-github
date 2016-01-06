@@ -3,4 +3,5 @@
 
 module.exports = {
   message: ':tada: %@',
+  publish: true,
 };

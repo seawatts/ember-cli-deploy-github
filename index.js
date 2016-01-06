@@ -7,6 +7,7 @@ const DeployPluginBase = require('ember-cli-deploy-plugin');
 
 const getEnvVar = require('./utils/get-env-var');
 const buildPreviewURL = require('./utils/build-preview-url');
+const getNormalizedRepoName = require('./utils/get-normalized-repo-name');
 
 module.exports = {
   name: 'ember-cli-deploy-github',
@@ -87,13 +88,3 @@ module.exports = {
     return new DeployPlugin();
   },
 };
-
-// This can occur when passed in a github username/repo combo which is what some CI environments have by
-// default
-function getNormalizedRepoName(repoString) {
-  if (repoString.indexOf('/') === -1) {
-    return repoString;
-  }
-
-  return repoString.split('/')[1];
-}
