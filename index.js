@@ -28,7 +28,8 @@ module.exports = {
               token: getEnvVar('GITHUB_TOKEN', this.readConfig('token')),
               userOrOrganization: getEnvVar('GITHUB_USER_OR_ORGANIZATION', this.readConfig('userOrOrganization')),
               repo: githubRepo,
-              sha: getEnvVar('GITHUB_COMMIT_SHA'),
+              commitSha: getEnvVar('GITHUB_COMMIT_SHA'),
+              commitUser: getEnvVar('GITHUB_COMMIT_USER'),
               appPrefix: getEnvVar('APP_PREFIX', this.readConfig('appPrefix')),
               publicURL: getEnvVar('PUBLIC_URL', this.readConfig('publicURL')),
               publicURLVersionParam: getEnvVar('PUBLIC_URL_VERSION_PARAM', this.readConfig('publicURLVersionParam')),
@@ -70,7 +71,7 @@ module.exports = {
           github.statuses.create({
             user: githubConfig.userOrOrganization,
             repo: githubConfig.repo,
-            sha: githubConfig.sha,
+            sha: githubConfig.commitSha,
             state: 'success',
             target_url: previewURL,
             context: 'ember-cli-deploy',
