@@ -55,11 +55,19 @@ For detailed information on what plugin hooks are and how they work, please refe
 - `willActivate`
 - `didDeploy`
 
-## Configuration Options
+## Required Configuration Options
 
 For detailed information on how configuration of plugins works, please refer to the [Plugin Documentation][2].
 
 > All of these options can also be set through environment variables
+
+### GITHUB_COMMIT_SHA (Environment variable only)
+
+The github commit sha that the status will be applied to. e.x https://github.com/my-user/:repo/commit/:sha
+
+### GITHUB_COMMIT_USER (Environment variable only)
+
+The github user that committed the code
 
 ### token 
 
@@ -79,16 +87,6 @@ The user or organization that owns the repo. e.x https://github.com/my-user/:rep
  
 - Environment variable: `GITHUB_REPO_NAME`
 
-### GITHUB_COMMIT_SHA (Environment variable only)
-
-The github commit sha that the status will be applied to. e.x https://github.com/my-user/:repo/commit/:sha
-
-### appPrefix (optional)
-
-This will be appended to the `publicURL`. e.x https://my-app-domain.com/:appPrefix
-
-- Environment variable: `APP_PREFIX`
-
 ### publicURL
 
 The url which your assets are going to be viewed from. e.x. https://my-app-domain.com
@@ -102,6 +100,14 @@ This will be the query param name that it will be applied to.
 e.x https://my-app-domain.com/?:publicURLVersionParam=1.2.3
 
 - Environment variable: `PUBLIC_URL_VERSION_PARAM`
+
+## Optional Configuration Options
+
+### appPrefix
+
+This will be appended to the `publicURL`. e.x https://my-app-domain.com/:appPrefix
+
+- Environment variable: `APP_PREFIX`
 
 ## Note 
 
