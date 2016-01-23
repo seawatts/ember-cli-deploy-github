@@ -14,75 +14,58 @@ module.exports = {
   createDeployPlugin(options) {
     var DeployPlugin = DeployPluginBase.extend({
       name: options.name,
-      configure(context) {
-        let isCIEnvironment = getEnvVar('CI', false);
-
-        if (isCIEnvironment) {
-
+      requiredConfig: ['publicURL', 'token', 'userOrOrganization', 'repo', 'commitSha'],
+      defaultConfig: {
+        willActivate(context) {
           if (context.deployTarget === 'pull-request') {
-
-            let githubRepo = getEnvVar('GITHUB_REPO_NAME', this.readConfig('repo'));
-            githubRepo = getNormalizedRepoName(githubRepo);
-
-            this.githubConfig = {
-              token: getEnvVar('GITHUB_TOKEN', this.readConfig('token')),
-              userOrOrganization: getEnvVar('GITHUB_USER_OR_ORGANIZATION', this.readConfig('userOrOrganization')),
-              repo: githubRepo,
-              commitSha: getEnvVar('GITHUB_COMMIT_SHA'),
-              commitUser: getEnvVar('GITHUB_COMMIT_USER'),
-              appPrefix: getEnvVar('APP_PREFIX', this.readConfig('appPrefix')),
-              publicURL: getEnvVar('PUBLIC_URL', this.readConfig('publicURL')),
-              publicURLVersionParam: getEnvVar('PUBLIC_URL_VERSION_PARAM', this.readConfig('publicURLVersionParam')),
-            };
+            throw new Error('Aborting the deployment process. The `pull-request` deployment target should never be activated.');
           }
-        }
-      },
+        },
 
-      willActivate(context) {
-        if (context.deployTarget === 'pull-request') {
-          throw new Error('Aborting the deployment process. The `pull-request` deployment target should never be activated.');
-        }
-      },
-
-      didDeploy(context) {
-        let isCIEnvironment = getEnvVar('CI', false);
-        if (isCIEnvironment) {
-          if (context.deployTarget === 'pull-request') {
+        didDeploy(context) {
+          let isCIEnvironment = getEnvVar('CI', this.readConfig('CI') || false);
+          if (isCIEnvironment && context.deployTarget === 'pull-request') {
             return this.notifyPullRequestOfDeploy(context);
           }
-        }
-      },
+        },
 
-      notifyPullRequestOfDeploy(context) {
-        let githubConfig = this.githubConfig;
-        let revisionKey = context.revisionData.revisionKey;
-        let previewURL = buildPreviewURL(githubConfig, revisionKey);
+        notifyPullRequestOfDeploy(context) {
+          let revisionKey = context.revisionData.revisionKey;
+          let previewURLParams = {
+            publicURL: this.readConfig('publicURL'),
+            appPrefix: this.readConfig('appPrefix'),
+          };
 
-        let github = new GitHubApi({
-          version: '3.0.0',
-        });
+          let previewURL = buildPreviewURL(previewURLParams, revisionKey);
 
-        github.authenticate({
-          type: 'oauth',
-          token: githubConfig.token,
-        });
-
-        return new Promise((resolve, reject) => {
-          github.statuses.create({
-            user: githubConfig.userOrOrganization,
-            repo: githubConfig.repo,
-            sha: githubConfig.commitSha,
-            state: 'success',
-            target_url: previewURL,
-            context: 'ember-cli-deploy',
-          }, (error, result) => {
-            if (error) {
-              reject(error);
-            } else {
-              resolve(result);
-            }
+          let github = new GitHubApi({
+            version: '3.0.0',
           });
-        });
+
+          github.authenticate({
+            type: 'oauth',
+            token: this.readConfig('token'),
+          });
+
+          let githubRepo = this.readConfig('repo');
+          githubRepo = getNormalizedRepoName(githubRepo);
+          return new Promise((resolve, reject) => {
+            github.statuses.create({
+              user: this.readConfig('userOrOrganization'),
+              repo: githubRepo,
+              sha: this.readConfig('commitSha'),
+              state: 'success',
+              target_url: previewURL,
+              context: 'ember-cli-deploy',
+            }, (error, result) => {
+              if (error) {
+                reject(error);
+              } else {
+                resolve(result);
+              }
+            });
+          });
+        },
       },
     });
 

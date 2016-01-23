@@ -10,12 +10,10 @@
   "author": "Chris Watts",
   "license": "MIT",
   "devDependencies": {
-    "ember-cli": "1.13.1",
-    "ember-cli-app-version": "0.4.0",
+    "ember-cli": "2.3.0-beta.1",
+    "ember-cli-app-version": "1.0.0",
     "ember-cli-dependency-checker": "^1.0.0",
-    "ember-cli-qunit": "0.3.15",
-    "ember-cli-release": "0.2.3",
-    "ember-try": "0.0.6"
+    "ember-cli-release": "1.0.0-beta.1"
   },
   "keywords": [
     "ember-addon",
@@ -24,8 +22,7 @@
   "dependencies": {
     "ember-cli-babel": "^5.0.0",
     "ember-cli-deploy-plugin": "^0.2.0",
-    "github": "^0.2.4",
-    "urlencode": "^1.1.0"
+    "github": "^0.2.4"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
