@@ -15,57 +15,55 @@ module.exports = {
     var DeployPlugin = DeployPluginBase.extend({
       name: options.name,
       requiredConfig: ['publicURL', 'token', 'userOrOrganization', 'repo', 'commitSha'],
-      defaultConfig: {
-        willActivate(context) {
-          if (context.deployTarget === 'pull-request') {
-            throw new Error('Aborting the deployment process. The `pull-request` deployment target should never be activated.');
-          }
-        },
+      willActivate(context) {
+        if (context.deployTarget === 'pull-request') {
+          throw new Error('Aborting the deployment process. The `pull-request` deployment target should never be activated.');
+        }
+      },
 
-        didDeploy(context) {
-          let isCIEnvironment = getEnvVar('CI', this.readConfig('CI') || false);
-          if (isCIEnvironment && context.deployTarget === 'pull-request') {
-            return this.notifyPullRequestOfDeploy(context);
-          }
-        },
+      didDeploy(context) {
+        let isCIEnvironment = getEnvVar('CI', this.readConfig('CI') || false);
+        if (isCIEnvironment && context.deployTarget === 'pull-request') {
+          return this.notifyPullRequestOfDeploy(context);
+        }
+      },
 
-        notifyPullRequestOfDeploy(context) {
-          let revisionKey = context.revisionData.revisionKey;
-          let previewURLParams = {
-            publicURL: this.readConfig('publicURL'),
-            appPrefix: this.readConfig('appPrefix'),
-          };
+      notifyPullRequestOfDeploy(context) {
+        let revisionKey = context.revisionData.revisionKey;
+        let previewURLParams = {
+          publicURL: this.readConfig('publicURL'),
+          appPrefix: this.readConfig('appPrefix'),
+        };
 
-          let previewURL = buildPreviewURL(previewURLParams, revisionKey);
+        let previewURL = buildPreviewURL(previewURLParams, revisionKey);
 
-          let github = new GitHubApi({
-            version: '3.0.0',
+        let github = new GitHubApi({
+          version: '3.0.0',
+        });
+
+        github.authenticate({
+          type: 'oauth',
+          token: this.readConfig('token'),
+        });
+
+        let githubRepo = this.readConfig('repo');
+        githubRepo = getNormalizedRepoName(githubRepo);
+        return new Promise((resolve, reject) => {
+          github.statuses.create({
+            user: this.readConfig('userOrOrganization'),
+            repo: githubRepo,
+            sha: this.readConfig('commitSha'),
+            state: 'success',
+            target_url: previewURL,
+            context: 'ember-cli-deploy',
+          }, (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(result);
+            }
           });
-
-          github.authenticate({
-            type: 'oauth',
-            token: this.readConfig('token'),
-          });
-
-          let githubRepo = this.readConfig('repo');
-          githubRepo = getNormalizedRepoName(githubRepo);
-          return new Promise((resolve, reject) => {
-            github.statuses.create({
-              user: this.readConfig('userOrOrganization'),
-              repo: githubRepo,
-              sha: this.readConfig('commitSha'),
-              state: 'success',
-              target_url: previewURL,
-              context: 'ember-cli-deploy',
-            }, (error, result) => {
-              if (error) {
-                reject(error);
-              } else {
-                resolve(result);
-              }
-            });
-          });
-        },
+        });
       },
     });
 

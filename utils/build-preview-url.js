@@ -12,7 +12,7 @@ module.exports = function(params, version) {
       throw new Error('{{versionSha}} must be present in the publicURL param');
     }
 
-    previewURL.replace('{{versionSha}}', version);
+    previewURL = previewURL.replace('{{versionSha}}', `index.html:${version}`);
   }
 
   return previewURL;
