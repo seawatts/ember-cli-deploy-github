@@ -59,13 +59,11 @@ For detailed information on what plugin hooks are and how they work, please refe
 
 For detailed information on how configuration of plugins works, please refer to the [Plugin Documentation][2].
 
-> All of these options can also be set through environment variables
-
-### GITHUB_COMMIT_SHA (Environment variable only)
+### GITHUB_COMMIT_SHA 
 
 The github commit sha that the status will be applied to. e.x https://github.com/my-user/:repo/commit/:sha
 
-### GITHUB_COMMIT_USER (Environment variable only)
+### GITHUB_COMMIT_USER 
 
 The github user that committed the code
 
@@ -73,41 +71,26 @@ The github user that committed the code
 
 The [token](https://github.com/settings/tokens) that will be used to set the status on the github commit.
  
-- Environment variable: `GITHUB_TOKEN`
-
 ### userOrOrganization
 
 The user or organization that owns the repo. e.x https://github.com/:userOrOrganization/my-repo
  
-- Environment variable: `GITHUB_USER_OR_ORGANIZATION`
-
 ### repo
 
 The user or organization that owns the repo. e.x https://github.com/my-user/:repo
  
-- Environment variable: `GITHUB_REPO_NAME`
-
 ### publicURL
 
 The url which your assets are going to be viewed from. e.x. https://my-app-domain.com
-
-- Environment variable: `PUBLIC_URL`
-
-### publicURLVersionParam
-
-If you have your server setup to take a query param to view a specific version of the index file.
-This will be the query param name that it will be applied to.
-e.x https://my-app-domain.com/?:publicURLVersionParam=1.2.3
-
-- Environment variable: `PUBLIC_URL_VERSION_PARAM`
+If you want to be able to a specific version of the index file you must include {{versionSha}} in the publicUrl
+e.x https://my-app-domain.com/{{versionSha}}
+This will get replaced and look like https://my-app-domain.com/index.html:123abf
 
 ## Optional Configuration Options
 
 ### appPrefix
 
 This will be appended to the `publicURL`. e.x https://my-app-domain.com/:appPrefix
-
-- Environment variable: `APP_PREFIX`
 
 ## Note 
 
