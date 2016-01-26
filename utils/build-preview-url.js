@@ -6,7 +6,11 @@ module.exports = function(params, version) {
   let publicURL = params.publicURL;
   let appPrefix = params.appPrefix;
 
-  let previewURL = `${publicURL}/${appPrefix}`;
+  let previewURL = publicURL;
+
+  if (appPrefix) {
+    previewURL = `${previewURL}/${appPrefix}`;
+  }
 
   if (version) {
     let urlEncodedVersion = urlencode(`:${version}`);
@@ -16,6 +20,8 @@ module.exports = function(params, version) {
     }
 
     previewURL = previewURL.replace('{{versionSha}}', `index.html${urlEncodedVersion}`);
+  } else {
+    previewURL = previewURL.replace('{{versionSha}}', '');
   }
 
   return previewURL;
