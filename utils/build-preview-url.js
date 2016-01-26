@@ -1,5 +1,6 @@
 /* jshint node: true */
 'use strict';
+const urlencode = require('urlencode');
 
 module.exports = function(params, version) {
   let publicURL = params.publicURL;
@@ -8,11 +9,13 @@ module.exports = function(params, version) {
   let previewURL = `${publicURL}/${appPrefix}`;
 
   if (version) {
+    let urlEncodedVersion = urlencode(`:${version}`);
+
     if (previewURL.indexOf('{{versionSha}}') === -1) {
       throw new Error('{{versionSha}} must be present in the publicURL param');
     }
 
-    previewURL = previewURL.replace('{{versionSha}}', `index.html:${version}`);
+    previewURL = previewURL.replace('{{versionSha}}', `index.html${urlEncodedVersion}`);
   }
 
   return previewURL;
