@@ -33,13 +33,13 @@ ENV.github = {
   repo: '<my-ember-app-repo>',
   appPrefix: '<dasherized-app-name>',
   publicURL: '<url-where-assets-will-be-viewed-from>',
-  publicURLVersionParam: '<version-param-name>'
+  commitUser: '<who-made-the-commit',
+  commitSha: '<sha-for-specific-commit>'
 }
 ```
 
 - Ensure that the following environment variables are set:
   - CI
-  - GITHUB_COMMIT_SHA
 
 - Run the pipeline
 
@@ -59,11 +59,11 @@ For detailed information on what plugin hooks are and how they work, please refe
 
 For detailed information on how configuration of plugins works, please refer to the [Plugin Documentation][2].
 
-### GITHUB_COMMIT_SHA 
+### commitSha 
 
 The github commit sha that the status will be applied to. e.x https://github.com/my-user/:repo/commit/:sha
 
-### GITHUB_COMMIT_USER 
+### commitUser 
 
 The github user that committed the code
 
