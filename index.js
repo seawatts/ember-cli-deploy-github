@@ -30,12 +30,9 @@ module.exports = {
 
       notifyPullRequestOfDeploy(context) {
         let revisionKey = context.revisionData.revisionKey;
-        let previewURLParams = {
-          publicURL: this.readConfig('publicURL'),
-          appPrefix: this.readConfig('appPrefix'),
-        };
+        let publicURL = this.readConfig('publicURL');
 
-        let previewURL = buildPreviewURL(previewURLParams, revisionKey);
+        let previewURL = buildPreviewURL(publicURL, revisionKey);
 
         let github = new GitHubApi({
           version: '3.0.0',

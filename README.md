@@ -31,7 +31,6 @@ ENV.github = {
   token: '<your-github-token>',
   userOrOrganization: '<user-name>'
   repo: '<my-ember-app-repo>',
-  appPrefix: '<dasherized-app-name>',
   publicURL: '<url-where-assets-will-be-viewed-from>',
   commitUser: '<who-made-the-commit',
   commitSha: '<sha-for-specific-commit>'
@@ -87,10 +86,6 @@ e.x https://my-app-domain.com/{{versionSha}}
 This will get replaced and look like https://my-app-domain.com/index.html:123abf
 
 ## Optional Configuration Options
-
-### appPrefix
-
-This will be appended to the `publicURL`. e.x https://my-app-domain.com/:appPrefix
 
 ## Note 
 

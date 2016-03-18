@@ -2,15 +2,8 @@
 'use strict';
 const urlencode = require('urlencode');
 
-module.exports = function(params, version) {
-  let publicURL = params.publicURL;
-  let appPrefix = params.appPrefix;
-
+module.exports = function(publicURL, version) {
   let previewURL = publicURL;
-
-  if (appPrefix) {
-    previewURL = `${previewURL}/${appPrefix}`;
-  }
 
   if (version) {
     let urlEncodedVersion = urlencode(`:${version}`);
