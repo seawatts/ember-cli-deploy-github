@@ -10,7 +10,7 @@
   "author": "Chris Watts",
   "license": "MIT",
   "devDependencies": {
-    "ember-cli": "2.4.2",
+    "ember-cli": "2.5.1",
     "ember-cli-app-version": "^1.0.0",
     "ember-cli-dependency-checker": "^1.0.0",
     "ember-cli-release": "1.0.0-beta.1"
